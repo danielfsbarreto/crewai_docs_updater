@@ -1,4 +1,3 @@
-from crewai_docs_updater.services.github_service import GithubService
-from crewai_docs_updater.services.mdx_chunker import MdxChunker
+from .file_translation_service import FileTranslationService
 
-__all__ = ["GithubService", "MdxChunker"]
+__all__ = ["FileTranslationService"]

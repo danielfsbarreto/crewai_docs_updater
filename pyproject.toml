@@ -6,6 +6,7 @@ authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.14"
 dependencies = [
     "crewai[tools]>=0.140.0,<1.0.0",
+    "gidgethub>=5.4.0",
     "pygithub>=2.6.1",
 ]
 
