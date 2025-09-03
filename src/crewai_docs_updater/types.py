@@ -16,5 +16,5 @@ class CrewDocsUpdaterState(BaseModel):
     repo: str = "crewAIInc/crewAI"
     docs_path: str = "docs"
     primary_language: str = "en"
-    secondary_language: str = "ko"
+    secondary_language: str = "pt-BR"
     files: list[File] = Field(default_factory=list)

@@ -16,7 +16,9 @@ class CrewDocsUpdaterFlow(Flow[CrewDocsUpdaterState]):
     @start()
     def list_files_to_translate(self):
         self.state.files = self.translation_service.get_files(
-            self.state.docs_path, self.state.primary_language
+            self.state.docs_path,
+            self.state.primary_language,
+            self.state.files,
         )
 
     @listen(list_files_to_translate)
@@ -52,6 +54,32 @@ class CrewDocsUpdaterFlow(Flow[CrewDocsUpdaterState]):
 
 
 def kickoff():
+    """
+    How to Pass Down Specific Files for Translation
+    -----------------------------------------------
+
+    By default, the CrewDocsUpdaterFlow will process all files found in the documentation path (`docs_path`) for translation.
+    However, you can specify a subset of files to process by passing a list of `File` objects to the flow's `kickoff` method.
+
+    Example:
+
+        from crewai_docs_updater.types import File
+
+        CrewDocsUpdaterFlow().kickoff(
+            inputs={
+                "files": [
+                    File(path="docs/en/guides/flows/first-flow.mdx"),
+                    File(path="docs/en/another-guide.mdx"),
+                ]
+            }
+        )
+
+    This will restrict the translation process to only the files you specify.
+    Each `File` object should have at least the `path` attribute set to the relative path of the file you want to process.
+
+    If you do not provide the `files` input, the flow will automatically discover all files in the `docs_path` directory.
+
+    """
     CrewDocsUpdaterFlow().kickoff()
 
 

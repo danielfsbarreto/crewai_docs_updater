@@ -12,8 +12,15 @@ class FileTranslationService:
         self._files = []
         self._github_client = GithubClient()
 
-    def get_files(self, docs_path: str, primary_language: str) -> list[File]:
-        self._files = self._github_client.get_files(f"{docs_path}/{primary_language}")
+    def get_files(
+        self, docs_path: str, primary_language: str, files: list[File] = []
+    ) -> list[File]:
+        if files:
+            self._files = files
+        else:
+            self._files = self._github_client.get_files(
+                f"{docs_path}/{primary_language}"
+            )
         print(f"Found {len(self._files)} files to translate")
 
         return self._files
